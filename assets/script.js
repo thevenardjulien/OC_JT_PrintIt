@@ -2,6 +2,7 @@ const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 const dotsDiv = document.querySelector(".dots");
 const carousel = document.querySelector(".carousel");
+const widthCarousel = document.querySelector(".carousel").offsetWidth;
 
 const slides = [
   {
@@ -40,22 +41,18 @@ slides.forEach((element) => {
 
 // Arrows
 
-const carouselWidth = document.querySelector(".carousel").offsetWidth;
-
 function previous() {
-  carousel.scrollLeft -= carouselWidth;
+  carousel.scrollLeft -= widthCarousel;
 }
 
 function next() {
-  carousel.scrollLeft += carouselWidth;
+  carousel.scrollLeft += widthCarousel;
 }
 
 arrowLeft.addEventListener("click", () => {
-  console.log("Arrow left");
   previous();
 });
 arrowRight.addEventListener("click", () => {
-  console.log("Arrow right");
   next();
 });
 

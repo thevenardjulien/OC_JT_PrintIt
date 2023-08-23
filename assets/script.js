@@ -24,6 +24,12 @@ const slides = [
   },
 ];
 
+// Editing Carousel offsetWidth on Window resize
+
+window.addEventListener("resize", function () {
+  widthCarousel = document.querySelector(".carousel").offsetWidth;
+});
+
 // Generate slides
 
 slides.forEach((element) => {
@@ -43,10 +49,22 @@ slides.forEach((element) => {
 
 function previous() {
   carousel.scrollLeft -= widthCarousel;
+
+  const itemsCarousel = carousel.querySelectorAll(".slide");
+  const scrollLeft = carousel.scrollLeft;
+  if (scrollLeft == 0) {
+    carousel.scrollLeft = widthCarousel * (itemsCarousel.length - 1);
+  }
 }
 
 function next() {
   carousel.scrollLeft += widthCarousel;
+  const itemsCarousel = carousel.querySelectorAll(".slide");
+  const scrollLeft = carousel.scrollLeft;
+  console.log(scrollLeft == widthCarousel * (itemsCarousel.length - 1));
+  if (scrollLeft == widthCarousel * (itemsCarousel.length - 1)) {
+    carousel.scrollLeft = 0;
+  }
 }
 
 arrowLeft.addEventListener("click", () => {
@@ -54,11 +72,6 @@ arrowLeft.addEventListener("click", () => {
 });
 arrowRight.addEventListener("click", () => {
   next();
-  const scrollLeft = carousel.scrollLeft;
-  const itemsCarousel = carousel.querySelectorAll(".slide");
-  if (scrollLeft == widthCarousel * (itemsCarousel.length - 1)) {
-    carousel.scrollLeft = 0;
-  }
 });
 
 // Bullet points
@@ -68,11 +81,3 @@ for (let i = 0; i < slides.length; i++) {
   bullet.classList.add("dot");
   dotsDiv.appendChild(bullet);
 }
-
-// Window resize
-
-window.addEventListener("resize", function () {
-  // console.log("Prise en compte du resize");
-  widthCarousel = document.querySelector(".carousel").offsetWidth;
-  // console.log(widthCarousel);
-});

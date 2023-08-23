@@ -210,6 +210,7 @@ header {
 
 .slide {
   height: 470px;
+  width: 100%;
   min-width: 100%;
   & img {
     width: 100%;
@@ -229,9 +230,6 @@ header {
   position: absolute;
   z-index: 2;
   transition: 0.3 ease-in-out;
-  &:hover {
-    transform: scale(1.2);
-  }
 }
 #banner .arrow_left {
   left: 10px;

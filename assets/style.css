@@ -201,14 +201,19 @@ header {
 }
 
 .carousel {
+  display: flex;
   width: 100%;
+  height: 470px;
+  overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 .slide {
+  min-width: 100%;
   position: relative;
   & img {
-    height: 470px;
     width: 100%;
+    height: 470px;
     object-fit: cover;
   }
   & p {
@@ -224,6 +229,10 @@ header {
 #banner .arrow {
   position: absolute;
   z-index: 2;
+  transition: 0.3 ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 #banner .arrow_left {
   left: 10px;

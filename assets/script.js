@@ -2,7 +2,7 @@ const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 const dotsDiv = document.querySelector(".dots");
 const carousel = document.querySelector(".carousel");
-const widthCarousel = document.querySelector(".carousel").offsetWidth;
+let widthCarousel = document.querySelector(".carousel").offsetWidth;
 
 const slides = [
   {
@@ -54,6 +54,11 @@ arrowLeft.addEventListener("click", () => {
 });
 arrowRight.addEventListener("click", () => {
   next();
+  const scrollLeft = carousel.scrollLeft;
+  const itemsCarousel = carousel.querySelectorAll(".slide");
+  if (scrollLeft == widthCarousel * (itemsCarousel.length - 1)) {
+    carousel.scrollLeft = 0;
+  }
 });
 
 // Bullet points
@@ -63,3 +68,11 @@ for (let i = 0; i < slides.length; i++) {
   bullet.classList.add("dot");
   dotsDiv.appendChild(bullet);
 }
+
+// Window resize
+
+window.addEventListener("resize", function () {
+  // console.log("Prise en compte du resize");
+  widthCarousel = document.querySelector(".carousel").offsetWidth;
+  // console.log(widthCarousel);
+});

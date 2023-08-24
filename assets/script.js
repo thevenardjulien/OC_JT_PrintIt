@@ -37,9 +37,11 @@ slides.forEach((slide) => {
   carouselItems.append(carouselItem);
 });
 
+// Logic
+
 let carouselItem = document.querySelectorAll(".carousel__item");
-let prev = document.querySelector(".carousel__arrows-left");
-let next = document.querySelector(".carousel__arrows-right");
+let arrowLeft = document.querySelector(".carousel__arrows-left");
+let arrowRight = document.querySelector(".carousel__arrows-right");
 
 // Define first active item
 let firstActive = document.querySelector(".carousel__item:first-child");
@@ -56,22 +58,52 @@ function removeActiveItem() {
   }
 }
 
-next.addEventListener("click", () => {
+function next() {
   state++;
   if (state >= nbrItem) {
     state = 0;
   }
   removeActiveItem();
   carouselItem[state].classList.add("active");
-  //   console.log(state);
-});
+}
 
-prev.addEventListener("click", () => {
+function prev() {
   state--;
   if (state < 0) {
     state = nbrItem - 1;
   }
   removeActiveItem();
   carouselItem[state].classList.add("active");
-  //   console.log(state);
+}
+
+arrowRight.addEventListener("click", () => {
+  next();
+});
+
+arrowLeft.addEventListener("click", () => {
+  prev();
+});
+
+// Automatic scroll
+
+setInterval(() => {
+  state++;
+  if (state >= nbrItem) {
+    state = 0;
+  }
+  removeActiveItem();
+  carouselItem[state].classList.add("active");
+}, 5000);
+
+// Keydown scroll
+
+let keydown = "";
+
+document.addEventListener("keydown", (e) => {
+  keydown = e.key;
+  if (keydown == "ArrowRight") {
+    next();
+  } else if (keydown == "ArrowLeft") {
+    prev();
+  }
 });

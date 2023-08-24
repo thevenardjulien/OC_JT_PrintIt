@@ -22,6 +22,8 @@ const slides = [
   },
 ];
 
+// Generating items
+
 slides.forEach((slide) => {
   const carouselItem = document.createElement("div");
   carouselItem.classList.add("carousel__item");
@@ -33,4 +35,43 @@ slides.forEach((slide) => {
   carouselItem.append(slideImage);
   carouselItem.append(slideTagLine);
   carouselItems.append(carouselItem);
+});
+
+let carouselItem = document.querySelectorAll(".carousel__item");
+let prev = document.querySelector(".carousel__arrows-left");
+let next = document.querySelector(".carousel__arrows-right");
+
+// Define first active item
+let firstActive = document.querySelector(".carousel__item:first-child");
+firstActive.classList.add("active");
+
+let state = 0;
+// console.log(state);
+
+let nbrItem = carouselItem.length;
+
+function removeActiveItem() {
+  for (i = 0; i < nbrItem; i++) {
+    carouselItem[i].classList.remove("active");
+  }
+}
+
+next.addEventListener("click", () => {
+  state++;
+  if (state >= nbrItem) {
+    state = 0;
+  }
+  removeActiveItem();
+  carouselItem[state].classList.add("active");
+  //   console.log(state);
+});
+
+prev.addEventListener("click", () => {
+  state--;
+  if (state < 0) {
+    state = nbrItem - 1;
+  }
+  removeActiveItem();
+  carouselItem[state].classList.add("active");
+  //   console.log(state);
 });

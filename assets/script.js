@@ -1,5 +1,4 @@
 const carousel = document.querySelector(".carousel");
-const carouselDots = document.querySelector(".carousel__dots");
 const carouselItems = document.querySelector(".carousel__items");
 
 const slides = [
@@ -37,24 +36,46 @@ slides.forEach((slide) => {
   carouselItems.append(carouselItem);
 });
 
+// Generating dots
+
+const carouselDots = document.querySelector(".carousel__dots");
+
+slides.forEach((slide) => {
+  const dot = document.createElement("div");
+  dot.classList.add("carousel__dot");
+  carouselDots.append(dot);
+});
+
 // Logic
 
 let carouselItem = document.querySelectorAll(".carousel__item");
+let carouselDot = document.querySelectorAll(".carousel__dot");
 let arrowLeft = document.querySelector(".carousel__arrows-left");
 let arrowRight = document.querySelector(".carousel__arrows-right");
 
-// Define first active item
+// Define first active item & dot
+
 let firstActive = document.querySelector(".carousel__item:first-child");
 firstActive.classList.add("active");
+
+let firstSelectedDot = document.querySelector(".carousel__dot:first-child");
+firstSelectedDot.classList.add("dot_selected");
 
 let state = 0;
 // console.log(state);
 
 let nbrItem = carouselItem.length;
+let nbrDot = carouselDot.length;
 
 function removeActiveItem() {
   for (i = 0; i < nbrItem; i++) {
     carouselItem[i].classList.remove("active");
+  }
+}
+
+function removeSelectedDot() {
+  for (i = 0; i < nbrDot; i++) {
+    carouselDot[i].classList.remove("dot_selected");
   }
 }
 
@@ -64,7 +85,9 @@ function next() {
     state = 0;
   }
   removeActiveItem();
+  removeSelectedDot();
   carouselItem[state].classList.add("active");
+  carouselDot[state].classList.add("dot_selected");
 }
 
 function prev() {
@@ -73,7 +96,9 @@ function prev() {
     state = nbrItem - 1;
   }
   removeActiveItem();
+  removeSelectedDot();
   carouselItem[state].classList.add("active");
+  carouselDot[state].classList.add("dot_selected");
 }
 
 arrowRight.addEventListener("click", () => {
@@ -87,12 +112,7 @@ arrowLeft.addEventListener("click", () => {
 // Automatic scroll
 
 setInterval(() => {
-  state++;
-  if (state >= nbrItem) {
-    state = 0;
-  }
-  removeActiveItem();
-  carouselItem[state].classList.add("active");
+  next();
 }, 5000);
 
 // Keydown scroll

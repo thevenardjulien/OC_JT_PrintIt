@@ -62,7 +62,7 @@ let firstSelectedDot = document.querySelector(".carousel__dot:first-child");
 firstSelectedDot.classList.add("dot_selected");
 
 let state = 0;
-// console.log(state);
+console.log(state);
 
 let nbrItem = carouselItem.length;
 let nbrDot = carouselDot.length;
@@ -80,10 +80,8 @@ function removeSelectedDot() {
 }
 
 function next() {
-  state++;
-  if (state >= nbrItem) {
-    state = 0;
-  }
+  state = (state + 1) % nbrItem;
+  console.log(state);
   removeActiveItem();
   removeSelectedDot();
   carouselItem[state].classList.add("active");
@@ -91,10 +89,11 @@ function next() {
 }
 
 function prev() {
-  state--;
+  state = (state - 1) % nbrItem;
   if (state < 0) {
     state = nbrItem - 1;
   }
+  console.log(state);
   removeActiveItem();
   removeSelectedDot();
   carouselItem[state].classList.add("active");
